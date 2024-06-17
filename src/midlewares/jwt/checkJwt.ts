@@ -14,8 +14,9 @@ const getTokenFromHeader = (req: RequestExt): string | null => {
 
 
 const getUserFromToken = async (token: string) => {
-    const decoded = jwt.verify(token, env.JWT_SECRET, { ignoreExpiration: true }) as { id: string };
-    return Auth.findById(decoded.id).populate('rol').select('-password');
+    const decoded = jwt.verify(token, env.JWT_SECRET, { ignoreExpiration: true }) as { _id: string };
+    console.log(decoded);
+    return Auth.findById(decoded._id).select('-password');
 };
 
 export const checkJwtToken = async (req: RequestExt, res: Response, next: NextFunction) => {
@@ -26,6 +27,7 @@ export const checkJwtToken = async (req: RequestExt, res: Response, next: NextFu
     }
 
     try {
+        console.log(token)
         const user = await getUserFromToken(token);
 
         if (!user) {
