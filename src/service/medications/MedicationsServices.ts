@@ -95,7 +95,7 @@ export class MedicationsServices {
                 const medication = await Medications.findById(id)
                 if (medication) {
                     if (medication.userId.toString() === userId) {
-                        const deleted = await Medications.findById(id, { new: true })
+                        const deleted = await Medications.findByIdAndDelete(id, { new: true })
                         if (deleted) {
                             return ResponseApi.success<MedicationsType>({ error: false, data: medication, message: "Medicamento eliminado", status: 200 });
                         }
