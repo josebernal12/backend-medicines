@@ -64,10 +64,10 @@ const MedicationsSchema: Schema = new Schema({
         trim: true
     }
 
-}, )
+}, { timestamps: true })
 
 
-  
+
 const Medications = mongoose.model<MedicationsType>('Medications', MedicationsSchema)
 
 export default Medications

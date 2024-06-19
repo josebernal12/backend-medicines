@@ -14,6 +14,8 @@ export type MedicationsType = Document & {
     qty_label_used: string;
     qty_tablets_per_blister: string
     userId: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export type MedicationsEndpoint = Omit<MedicationsType, "_id"> 

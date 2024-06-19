@@ -90,7 +90,7 @@ const ConciliationSchema: Schema = new Schema({
         trim: true
     }
 
-})
+}, { timestamps: true })
 
 const Conciliation = mongoose.model<ConciliationType>('Conciliation', ConciliationSchema)
 

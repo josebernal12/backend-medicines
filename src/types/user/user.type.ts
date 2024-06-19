@@ -6,6 +6,8 @@ export type UserAuth = Document & {
   email: string;
   password: string;
   token: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export type UserType = Omit<UserAuth, '_id'>  
 export type UserAuthType = Pick<UserAuth, 'email' | 'password'>;

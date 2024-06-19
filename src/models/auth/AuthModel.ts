@@ -22,7 +22,7 @@ const AuthSchema: Schema = new Schema({
     default: null,
     trim: true
   }
-})
+}, { timestamps: true })
 
 const Auth = mongoose.model<UserAuth>('User', AuthSchema)
 

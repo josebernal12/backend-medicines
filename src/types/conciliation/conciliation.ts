@@ -14,7 +14,9 @@ export type ConciliationType = Document & {
     factor: number[],
     lastTable: number[],
     tableSumatoria: number[],
-    userId: string
+    userId: string,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 export type ConciliationEndpoint = Omit<ConciliationType, '_id'>
