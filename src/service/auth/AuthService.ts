@@ -35,7 +35,7 @@ export class AuthService {
   static login = async (email: string, password: string): Promise<ResponseType<UserAuth>> => {
     try {
       const exist = await Validate.existEmail(email)
-      if (exist) {
+      if (!exist) {
         const user = await Auth.findOne({ email })
         if (user) {
           const isValid = Helper.compareHash(password, user.password)

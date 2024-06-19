@@ -15,7 +15,6 @@ const getTokenFromHeader = (req: RequestExt): string | null => {
 
 const getUserFromToken = async (token: string) => {
     const decoded = jwt.verify(token, env.JWT_SECRET, { ignoreExpiration: true }) as { _id: string };
-    console.log(decoded);
     return Auth.findById(decoded._id).select('-password');
 };
 
