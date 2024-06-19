@@ -58,24 +58,28 @@ export class MedicationsServices {
     ): Promise<ResponseType<MedicationsType>> {
 
         try {
-            if (id) {
-                const medications = await Medications.findByIdAndUpdate(id, {
-                    name,
-                    code,
-                    aluminium_bad,
-                    aluminium_good,
-                    pvc_tablet,
-                    blister_bad,
-                    blister_good,
-                    qty_blister_per_box,
-                    qty_plegadizas,
-                    qty_label_used,
-                    qty_tablets_per_blister,
-                    userId
-                }, { new: true });
+            if (id && userId) {
+                const medications = await Medications.findById(id);
                 if (medications) {
                     if (medications.userId.toString() === userId) {
-                        return ResponseApi.success<MedicationsType>({ error: false, data: medications, message: "medicamento actualizado", status: 200 })
+                        const update = await Medications.findByIdAndUpdate(id, {
+                            name,
+                            code,
+                            aluminium_bad,
+                            aluminium_good,
+                            pvc_tablet,
+                            blister_bad,
+                            blister_good,
+                            qty_blister_per_box,
+                            qty_plegadizas,
+                            qty_label_used,
+                            qty_tablets_per_blister,
+                            userId
+                        }, { new: true });
+                        if (update) {
+                            return ResponseApi.success<MedicationsType>({ error: false, data: medications, message: "medicamento actualizado", status: 200 })
+                        }
+                        return ResponseApi.error(true, 'usuario no puede actualizar un medicamento de otro usuario', 404)
                     }
                 }
                 return ResponseApi.error(true, 'error al actualizar medicamento', 404)
@@ -87,11 +91,15 @@ export class MedicationsServices {
     }
     static async deleteById(id: string, userId: string): Promise<ResponseType<MedicationsType>> {
         try {
-            if (id) {
-                const medication = await Medications.findByIdAndDelete(id, { new: true })
+            if (id && userId) {
+                const medication = await Medications.findById(id)
                 if (medication) {
                     if (medication.userId.toString() === userId) {
-                        return ResponseApi.success<MedicationsType>({ error: false, data: medication, message: "Medicamento eliminado", status: 200 });
+                        const deleted = await Medications.findById(id, { new: true })
+                        if (deleted) {
+                            return ResponseApi.success<MedicationsType>({ error: false, data: medication, message: "Medicamento eliminado", status: 200 });
+                        }
+                        return ResponseApi.error(true, "error al eliminar el usuario", 400)
                     }
                     return ResponseApi.error(true, "el medicamento no pertenece al usuario", 400)
                 }
@@ -129,7 +137,6 @@ export class MedicationsServices {
         try {
             if (id) {
                 const medication = await Medications.findById(id)
-
                 if (medication) {
                     if (medication.userId.toString() === userId) {
                         return ResponseApi.success<MedicationsType>({ error: false, data: medication, message: "medicamento obtenido", status: 200 })
