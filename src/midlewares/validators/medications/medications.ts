@@ -32,7 +32,6 @@ export const medicationsUpdate = [
     check('qty_plegadizas').exists().notEmpty().withMessage('cantidad de plegadizas tiene que venir'),
     check('qty_label_used').exists().notEmpty().withMessage('cantidad de etiquetas usadas tiene que venir'),
     check('qty_tablets_per_blister').exists().notEmpty().withMessage('cantidad de tabletas por blister tiene que venir'),
-    check('user_id').exists().notEmpty().withMessage('el usuario del id no puede ir vacio'),
     (req: Request, res: Response, next: NextFunction) => {
         validateResult(req, res, next);
     },
