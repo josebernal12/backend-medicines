@@ -1,7 +1,9 @@
-import { Request, Response } from 'express'
+import {  Response } from 'express'
 import { ConciliationEndpoint } from '../../types/conciliation/conciliation';
 import { ConciliationServices } from '../../service/conciliation/ConciliationServices';
 import { RequestExt } from '../../types/request/requestExt';
+import { MedicationsQuery } from '../../types/querys/medications';
+import { Helper } from '../../helpers/helper/helper';
 export class ConciliationController {
 
     static async create(req: RequestExt, res: Response) {
@@ -37,7 +39,10 @@ export class ConciliationController {
     }
 
     static async getAll(req: RequestExt, res: Response) {
-        const response = await ConciliationServices.getAll(req.user?.id)
+        const { name, code } = req.query as unknown as MedicationsQuery
+        const regex = name && name !== "undefined" ? Helper.transformNameRegularExpression(name) : null;
+        const regexCode = code && code !== "undefined" ? Helper.transformNameRegularExpression(code) : null;
+        const response = await ConciliationServices.getAll(req.user?.id, regex, regexCode)
         res.status(response.status).json({
             error: response.error,
             message: response.message,

@@ -4,6 +4,8 @@ import { Request, Response, NextFunction } from 'express'
 import validateResult from '../validationResult';
 
 export const checkValueConciliation = [
+    check('name').exists().notEmpty().withMessage('el nombre no puede ir vacio'),
+    check('code').exists().notEmpty().withMessage('el codigo no puede ir vacio'),
     check('mainTableData').exists().notEmpty().withMessage('main table data no puede ir vacio'),
     check('secondTableData').exists().notEmpty().withMessage('second table data no puede ir vacio'),
     check('fiveTableData').exists().notEmpty().withMessage('five table data no puede ir vacio'),

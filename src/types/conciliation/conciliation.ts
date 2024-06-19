@@ -1,6 +1,8 @@
 import { Document } from "mongoose"
 
 export type ConciliationType = Document & {
+    name: string,
+    code: string
     mainTableData: number[],
     secondTableData: number[],
     fiveTableData: number[],

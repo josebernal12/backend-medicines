@@ -15,7 +15,7 @@ export class UserController {
         const regex = name && name !== "undefined" ? Helper.transformNameRegularExpression(name) : null;
         const showAllNumber = parseInt(showAll, 10);
         const quantityNumber = parseInt(quantity, 10);
-
+        console.log(regex)
         const response = await UserService.getAll(regex, showAllNumber, quantityNumber)
 
         res.status(response.status).json({

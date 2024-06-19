@@ -24,6 +24,7 @@ export class Helper {
     return token
   }
   static transformNameRegularExpression = (name: string) => {
+    console.log(name)
     const regex = new RegExp(`^${name}`, 'i');
     return regex;
   }

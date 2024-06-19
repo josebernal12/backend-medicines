@@ -6,6 +6,8 @@ import { ResponseType } from "../../types/response/response.types";
 export class ConciliationServices {
 
     static async create(userId: string, {
+        name,
+        code,
         mainTableData,
         secondTableData,
         fiveTableData,
@@ -20,6 +22,8 @@ export class ConciliationServices {
     }: ConciliationEndpoint): Promise<ResponseType<ConciliationType>> {
         try {
             const conciliation = await Conciliation.create({
+                name,
+                code,
                 mainTableData,
                 secondTableData,
                 fiveTableData,
@@ -46,6 +50,8 @@ export class ConciliationServices {
     }
 
     static async update(id: string, userId: string, {
+        name,
+        code,
         mainTableData,
         secondTableData,
         fiveTableData,
@@ -65,6 +71,8 @@ export class ConciliationServices {
                 if (conciliation) {
                     if (conciliation.userId.toString() === userId) {
                         const update = await Conciliation.findByIdAndUpdate(id, {
+                            name,
+                            code,
                             mainTableData,
                             secondTableData,
                             fiveTableData,
@@ -115,9 +123,16 @@ export class ConciliationServices {
         }
     }
 
-    static async getAll(userId: string): Promise<ResponseType<ConciliationType>> {
+    static async getAll(userId: string, name: RegExp | null, code: RegExp | null): Promise<ResponseType<ConciliationType>> {
         try {
             if (userId) {
+                if (name && code) {
+                    const conciliation = await Conciliation.find({ userId, name, code })
+                    if (conciliation) {
+                        return ResponseApi.success<ConciliationType>({ error: false, data: conciliation, message: "conciliaciones encontradas", status: 200 })
+                    }
+                    return ResponseApi.error(true, "error al buscar las conciliaciones", 400)
+                }
                 const conciliations = await Conciliation.find({ userId })
                 if (conciliations) {
                     return ResponseApi.success<ConciliationType>({ error: false, data: conciliations, message: "conciliaciones encontradas", status: 200 })

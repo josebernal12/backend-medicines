@@ -2,7 +2,16 @@ import mongoose, { Schema } from "mongoose";
 import { ConciliationType } from "../../types/conciliation/conciliation";
 
 const ConciliationSchema: Schema = new Schema({
-
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    code: {
+        type: String,
+        required: true,
+        trim: true
+    },
     mainTableData: [
         [{
             type: Number,
