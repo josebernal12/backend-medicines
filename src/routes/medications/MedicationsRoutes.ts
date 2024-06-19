@@ -9,6 +9,8 @@ router.route('/')
     .get(checkJwtToken, MedicationsController.getAll)
     .post(checkJwtToken, medicationsCreate, MedicationsController.create);
 
+
+router.get('/medication', checkJwtToken, MedicationsController.getOne);
 router.route('/:id')
     .get(checkJwtToken, MedicationsController.getById)
     .put(checkJwtToken, medicationsUpdate, MedicationsController.update)

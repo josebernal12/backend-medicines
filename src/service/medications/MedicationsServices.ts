@@ -150,4 +150,20 @@ export class MedicationsServices {
             return ResponseApi.error(true, "entro al catch", 500)
         }
     }
+
+    static async searchMedicationExactly(name: RegExp | null, code: RegExp | null, userId: string): Promise<ResponseType<MedicationsType>> {
+        try {
+            if (name && code && userId) {
+                const medication = await Medications.findOne({ name, code, userId })
+                if (medication) {
+                    return ResponseApi.success<MedicationsType>({ error: false, data: medication, message: "medicamento encontrado", status: 200 })
+                }
+                return ResponseApi.error(true, "error al buscar el medicamento", 400)
+            }
+            return ResponseApi.error(true, "todos los datos en la query son necesarios", 400)
+
+        } catch (error) {
+            return ResponseApi.error(true, "error al catch", 500)
+        }
+    }
 }

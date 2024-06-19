@@ -69,4 +69,19 @@ export class MedicationsController {
                 status: response.status,
             })
     }
+    static async getOne(req: RequestExt, res: Response) {
+        const { name, code } = req.query as unknown as MedicationsQuery
+        const regex = name && name!== "undefined"? Helper.transformNameRegularExpression(name) : null;
+        const regexCode = code && code!== "undefined"? Helper.transformNameRegularExpression(code) : null;
+        const response = await MedicationsServices.searchMedicationExactly(regex, regexCode, req.user?.id)
+
+        res.status(response.status).json(
+            {
+                error: response.error,
+                message: response.message,
+                data: response.data,
+                status: response.status,
+            }
+        )
+    }
 }
