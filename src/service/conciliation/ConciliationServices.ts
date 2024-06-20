@@ -20,6 +20,7 @@ export class ConciliationServices {
         lastTable,
         tableSumatoria
     }: ConciliationEndpoint): Promise<ResponseType<ConciliationType>> {
+        console.log(tableAcondicionado)
         try {
             const conciliation = await Conciliation.create({
                 name,
