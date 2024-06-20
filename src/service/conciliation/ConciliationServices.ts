@@ -150,10 +150,12 @@ export class ConciliationServices {
         try {
             if (id && userId) {
                 const conciliation = await Conciliation.findById(id)
+                console.log(conciliation)
                 if (conciliation) {
-                    if (conciliation.userId === userId) {
+                    if (conciliation.userId.toString() === userId) {
                         return ResponseApi.success<ConciliationType>({ error: false, data: conciliation, message: "conciliacion encontrada", status: 200 })
                     }
+                    return ResponseApi.error(true, 'el usuario no tiene permiso para ver otra conciliacion que no le pertenece', 404)
                 }
                 return ResponseApi.error(true, 'error al buscar conciliacion con ese id', 400)
             }
