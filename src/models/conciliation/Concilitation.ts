@@ -46,6 +46,10 @@ const ConciliationSchema: Schema = new Schema({
         type: Number,
         trim: true
     },
+    tableTeleCamara0: {
+        type: Number,
+        trim: true
+    },
     tableFour: [
         [{
             type: Number,

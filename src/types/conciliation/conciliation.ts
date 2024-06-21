@@ -10,6 +10,7 @@ export type ConciliationType = Document & {
     tableAcondicionado: number,
     hermes: number,
     tableTeleCamara: number,
+    tableTeleCamara0: number,
     tableFour: number[],
     factor: number[],
     lastTable: number[],
