@@ -1,9 +1,10 @@
+import { env } from "../../helpers/config/envalid";
 import { ResponseApi } from "../../helpers/response/response";
 import Auth from "../../models/auth/AuthModel";
 import { ResponseType } from "../../types/response/response.types";
 import { UserAuth, UserType } from "../../types/user/user.type";
 import { UserUtils } from "../../utils/user/user";
-
+import jwt from 'jsonwebtoken'
 export class UserService {
     //TODO REVISAR SI LO REGRESAMOS A COMO ESTABA ANTES
     static async getAll(name: RegExp | null, showAll: number | null, quantity: number | null): Promise<ResponseType<UserAuth>> {
@@ -58,6 +59,21 @@ export class UserService {
 
         } catch (error) {
             return ResponseApi.error(true, 'entro al catch', 500)
+        }
+    }
+
+    static tokenIsValid(token: string): boolean {
+        try {
+            if (token) {
+                const decoded = jwt.verify(token, env.JWT_SECRET)
+                if (decoded) {
+                    return true
+                }
+                return false
+            }
+            return false
+        } catch (error) {
+            return false
         }
     }
 }

@@ -10,4 +10,5 @@ router.route('/:id')
     .put(UserController.update)
     .delete(UserController.deleteById)
 
+router.get('/tokenIsValid/:token', UserController.tokenIsValidController)
 export default router

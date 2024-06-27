@@ -58,4 +58,12 @@ export class UserController {
             status: response.status
         })
     }
+
+    static tokenIsValidController = (req: Request, res: Response) => {
+        const { token } = req.params;
+
+        const response = UserService.tokenIsValid(token);
+
+        res.json(response)
+    }
 }
