@@ -16,6 +16,7 @@ export type ConciliationType = Document & {
     lastTable: number[],
     tableSumatoria: number[],
     userId: string,
+    perfomance: number,
     createdAt: Date,
     updatedAt: Date
 }

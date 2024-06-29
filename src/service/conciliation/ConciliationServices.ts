@@ -19,7 +19,8 @@ export class ConciliationServices {
         tableFour,
         factor,
         lastTable,
-        tableSumatoria
+        tableSumatoria,
+        perfomance
     }: ConciliationEndpoint): Promise<ResponseType<ConciliationType>> {
         console.log(tableAcondicionado)
         try {
@@ -38,7 +39,8 @@ export class ConciliationServices {
                 factor,
                 lastTable,
                 tableSumatoria,
-                userId
+                userId,
+                perfomance
             })
             if (conciliation) {
                 if (conciliation.userId.toString() === userId) {
@@ -66,7 +68,8 @@ export class ConciliationServices {
         tableFour,
         factor,
         lastTable,
-        tableSumatoria
+        tableSumatoria,
+        perfomance
     }: ConciliationEndpoint): Promise<ResponseType<ConciliationType>> {
         try {
             if (id && userId) {
@@ -89,7 +92,8 @@ export class ConciliationServices {
                             factor,
                             lastTable,
                             tableSumatoria,
-                            userId
+                            userId,
+                            perfomance
                         }, { new: true })
                         if (update) {
                             return ResponseApi.success<ConciliationType>({ error: false, data: conciliation, message: "conciliacion actualizada", status: 200 })

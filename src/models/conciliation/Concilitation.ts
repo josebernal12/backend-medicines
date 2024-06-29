@@ -78,6 +78,9 @@ const ConciliationSchema: Schema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User',
         trim: true
+    },
+    perfomance: {
+        type: Number,
     }
 
 }, { timestamps: true })
