@@ -14,10 +14,11 @@ const corsOptions = {
     origin: isProduction ? env.FRONTEND_PRODUCTION : env.FRONTEND_URL,
     credentials: true,
 }
-
 const app = express()
 app.use(helmet())
-app.use(cors(corsOptions))
+app.use(cors({
+    origin: 'https://consilacion.onrender.com'
+}))
 app.use(express.json())
 app.use(compression())
 app.use('/api/auth', authRouter)
