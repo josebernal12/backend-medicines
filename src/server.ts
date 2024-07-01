@@ -17,7 +17,7 @@ const corsOptions = {
 const app = express()
 app.use(helmet())
 app.use(cors({
-    origin: 'https://consilacion.onrender.com'
+    origin: ['https://consilacion.onrender.com', 'http://localhost:5173']
 }))
 app.use(express.json())
 app.use(compression())
