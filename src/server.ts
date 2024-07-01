@@ -14,7 +14,6 @@ const corsOptions = {
     origin: isProduction ? env.FRONTEND_PRODUCTION : env.FRONTEND_URL,
     credentials: true,
 }
-
 const app = express()
 app.use(helmet())
 app.use(cors(corsOptions))
